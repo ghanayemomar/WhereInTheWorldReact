@@ -1,7 +1,8 @@
-export default function DetailImage({ countries }) {
+export default function DetailImage({ country }) {
+  console.log(country)
   return (
-    <div class="lg:w-2/5 lg:mt-40 mt-16">
-      <img src={countries[0].flags.svg} />
+    <div className="lg:w-2/5 lg:mt-40 mt-16">
+      <img src={country.flags.svg} />
     </div>
   );
 }

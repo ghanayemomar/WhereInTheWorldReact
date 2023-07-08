@@ -1,27 +1,24 @@
-export default function DetailBorders() {
+export default function DetailBorders({ country }) {
+  const borderCountries = country.borders;
   return (
-    <div class="flex flex-row flex-wrap lg:mt-16 mt-10">
-      <div class="font-semibold mr-2">Border Countires:</div>
+    <div className="flex flex-row items-center flex-wrap lg:mt-16 mt-10">
+      <div className="font-semibold mr-2">Border Countries:</div>
       <div>
-        <ul class="flex flex-row flex-wrap">
-          <li class="bg-light-elementsColor dark:bg-dark-elementscolor mr-2 my-1 px-5 py-1 shadow">
-            Unidted State Amirican
-          </li>
-          <li class="bg-light-elementsColor dark:bg-dark-elementscolor mr-2 my-1 px-5 py-1 shadow">
-            Jordan
-          </li>
-          <li class="bg-light-elementsColor dark:bg-dark-elementscolor mr-2 my-1 px-5 py-1 shadow">
-            Iraq
-          </li>
-          <li class="bg-light-elementsColor dark:bg-dark-elementscolor mr-2 my-1 px-5 py-1 shadow">
-            Israel
-          </li>
-          <li class="bg-light-elementsColor dark:bg-dark-elementscolor mr-2 my-1 px-5 py-1 shadow">
-            Saudi Arabia
-          </li>
-          <li class="bg-light-elementsColor dark:bg-dark-elementscolor mr-2 my-1 px-5 py-1 shadow">
-            Syria
-          </li>
+        <ul className="flex flex-row flex-wrap">
+          {borderCountries.length > 0 ? (
+            borderCountries.map((country, index) => (
+              <li
+                key={index}
+                className="bg-light-elementsColor dark:bg-dark-elementscolor mr-2 my-1 px-5 py-1 shadow"
+              >
+                {country}
+              </li>
+            ))
+          ) : (
+            <li className="bg-light-elementsColor dark:bg-dark-elementscolor mr-2 my-1 px-5 py-1 shadow">
+              No Border For This Country
+            </li>
+          )}
         </ul>
       </div>
     </div>

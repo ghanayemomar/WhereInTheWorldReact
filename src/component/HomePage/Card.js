@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
-
+import { Link } from "react-router-dom";
 export default function Card(props) {
   const setCountireFav = (event) => {
     event.preventDefault();
@@ -9,10 +9,10 @@ export default function Card(props) {
   return (
     <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 gap-6 md:ml-11  w-4/4 sm:w-3/4 mx-auto mb-10">
       {props.countries.map((country, index) => (
-        <a
+        <Link
+          to="/Detail-Page"
           key={index}
           className="relative rounded shadow-xl w-full h-96 dark:text-dark-textcolor dark:bg-dark-elementscolor"
-          href="#"
         >
           <img
             className="w-full h-44 object-cover"
@@ -46,7 +46,7 @@ export default function Card(props) {
             class="absolute  block right-5 bottom-5 text-xl"
             onClick={setCountireFav}
           />
-        </a>
+        </Link>
       ))}
     </div>
   );

@@ -1,7 +1,6 @@
-import NavBar from "../component/NavBar";
-import SearchFilterBar from "../component/SearchFilterBar";
-import Card from "../component/Card";
-import Favourites from "../component/Favourites";
+import SearchFilterBar from "../component/HomePage/SearchFilterBar";
+import Card from "../component/HomePage/Card";
+import Favourites from "../component/HomePage/Favourites";
 import { useState } from "react";
 
 export default function HomePage(props) {
@@ -23,7 +22,6 @@ export default function HomePage(props) {
 
   return (
     <div class="bg-light-backgroundColor dark:bg-dark-backgroundcolor">
-      <NavBar />
       <SearchFilterBar
         placeholder="Search for a country"
         onChangeSearch={searchInputChangeHandler}

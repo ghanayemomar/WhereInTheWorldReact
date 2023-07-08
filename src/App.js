@@ -1,5 +1,9 @@
 import HomePage from "./pages/HomePage";
 import DetailPage from "./pages/DetailPage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorPage from "./pages/ErrorPage";
+import RootLayout from "./pages/Root";
+
 const countries = [
   {
     flags: {
@@ -437,8 +441,21 @@ const countries = [
     population: 1399491,
   },
 ];
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    errorElement: <ErrorPage/>,
+    element: <RootLayout />,
+    children: [
+      { path: "/", element: <HomePage countries={countries} /> },
+      { path: "Detail-Page", element: <DetailPage countries={countries}/> },
+    ],
+  },
+]);
+
 function App() {
-  return <DetailPage countries={countries} />;
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -7,6 +7,8 @@ export default function HomePage(props) {
   const [searchResult, setSearchResult] = useState("");
   const [filterResult, setFilterResult] = useState("No Filter");
 
+  const [favorites, setFavorites] = useState([]);
+
   const searchInputChangeHandler = (searchResult) => {
     setSearchResult(searchResult);
   };
@@ -14,11 +16,33 @@ export default function HomePage(props) {
     setFilterResult(filterResult);
   };
 
+  const isFavorite = (country) => {
+    return favorites.includes(country); // t or f
+  };
+
   const filterCountries = props.countries.filter((country) => {
-    return filterResult === "No Filter"
-      ? true
-      : country.region === filterResult;
+    if (filterResult === "Favorite") {
+      return isFavorite(country);
+    } else if (filterResult === "No Filter") {
+      return true;
+    } else {
+      return country.region === filterResult;
+    }
   });
+
+  const addFavorite = (event, country) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const updatedFavorites = [...favorites, country];
+    setFavorites(updatedFavorites);
+  };
+
+  const removeFavorite = (event, country) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const updatedFavorites = favorites.filter((fav) => fav !== country);
+    setFavorites(updatedFavorites);
+  };
 
   return (
     <div className="bg-light-backgroundColor dark:bg-dark-backgroundcolor">
@@ -29,9 +53,16 @@ export default function HomePage(props) {
         onChangeFilter={filterDropDownChangeHandler}
         filterResult={filterResult}
       />
+
       <div className="flex flex-row px-10 md:px-28">
-        <Favourites countries={filterCountries} />
-        <Card countries={filterCountries} />
+        <Favourites favorites={favorites} removeFavorite={removeFavorite} />
+
+        <Card
+          countries={filterCountries}
+          addFavorite={addFavorite}
+          removeFavorite={removeFavorite}
+          isFavorite={isFavorite}
+        />
       </div>
     </div>
   );

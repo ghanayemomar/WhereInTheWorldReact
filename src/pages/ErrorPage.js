@@ -1,12 +1,10 @@
 import { Link, useRouteError } from "react-router-dom";
-import NavBar from "../component/NavBar";
 
 export default function ErrorPage() {
   const error = useRouteError();
 
   return (
     <>
-    <NavBar/>
       <div className="flex items-center justify-center w-screen h-screen bg-light-backgroundColor">
         <div className="px-4 lg:py-12">
           <div className="lg:gap-4 lg:flex">

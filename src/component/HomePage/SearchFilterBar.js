@@ -9,7 +9,7 @@ export default function SearchFilterBar(props) {
   };
 
   return (
-    <section className="flex justify-between flex-wrap px-5 sm:px-14 md:px-28 py-12 dark:bg-dark-backgroundcolor dark:text-dark-textcolor ">
+    <section className="flex justify-between flex-wrap px-5 sm:px-14 md:px-28 pt-36 pb-16 dark:bg-dark-backgroundcolor dark:text-dark-textcolor ">
       <div className="relative inline-block w-full md:w-2/5 mb-10 md:m-0">
         <label className="text-lg ">
           <span className="absolute inset-y-0 left-0 flex items-center pl-10">

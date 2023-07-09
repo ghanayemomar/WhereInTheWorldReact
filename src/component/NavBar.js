@@ -17,7 +17,7 @@ export default function NavBar() {
   };
 
   return (
-    <div class='relative'>
+    <div className='relative'>
       <header className="fixed top-0 left-0 right-0 z-20 flex justify-between items-center bg-light-elementsColor dark:bg-dark-elementscolor dark:text-dark-textcolor h-24 px-5 sm:px-14 md:px-28 shadow">
         <h1 className="font-extrabold md:text-2xl">Where In The World?</h1>
         <button className="flex items-center" onClick={handleThemeToggle}>

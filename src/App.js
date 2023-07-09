@@ -1869,11 +1869,11 @@ const countries =[
 
 const router = createBrowserRouter([
   {
-    path: "/HomePage",
+    path: "",
     errorElement: <ErrorPage />,
     element: <RootLayout />,
     children: [
-      { path: "", element: <HomePage countries={countries} /> },
+      { path: "/", element: <HomePage countries={countries} /> },
       { path: "Detail-Page/:CountryName", element: <DetailPage countries={countries} /> },
     ],
   },

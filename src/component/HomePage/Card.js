@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 export default function Card(props) {
   return props.countries.length === 0 ? (
-    <div class="text-3xl font-semibold mx-auto min-h-screen   dark:text-dark-textcolor">
+    <div className="text-3xl font-semibold mx-auto min-h-screen dark:text-dark-textcolor">
       No Countries Found
     </div>
   ) : (
-    <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 gap-6 md:ml-11  w-4/4 sm:w-3/4 mx-auto mb-10">
+    <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 gap-6 md:ml-11 w-4/4 sm:w-3/4 mx-auto mb-10">
       {props.countries.map((country, index) => (
         <Link
           to={`Detail-Page/${country.name.common}`}
@@ -38,7 +38,6 @@ export default function Card(props) {
                 </li>
                 <li>
                   <span className="font-bold">Capital: </span>
-
                   {country?.capital[0] ? country.capital[0] : "No Data Found"}
                 </li>
               </ul>
@@ -47,12 +46,22 @@ export default function Card(props) {
           {props.isFavorite(country) ? (
             <FaStar
               className="absolute block right-5 bottom-5 text-xl"
-              onClick={(event) => props.removeFavorite(event, country)}
+              onClick={(event) =>
+                props.removeFavorite(event, {
+                  name: country.name.common,
+                  flag: country.flags.svg,
+                })
+              }
             />
           ) : (
             <FaRegStar
               className="absolute block right-5 bottom-5 text-xl"
-              onClick={(event) => props.addFavorite(event, country)}
+              onClick={(event) =>
+                props.addFavorite(event, {
+                  name: country.name.common,
+                  flag: country.flags.svg,
+                })
+              }
             />
           )}
         </Link>

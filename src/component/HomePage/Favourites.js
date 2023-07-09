@@ -14,11 +14,11 @@ export default function Favourites(props) {
                 <div className="flex flex-row flex-wrap items-center">
                   <img
                     className="mx-3 w-12 rounded"
-                    src={country.flags.svg}
-                    alt={`Flag of ${country.name.common}`}
+                    src={country.flag}
+                    alt={`Flag of ${country.name}`}
                   />
                   <div className="overflow-hidden text-sm font-semibold">
-                    {country.name.common}
+                    {country.name}
                   </div>
                 </div>
 

@@ -1,7 +1,7 @@
 import SearchFilterBar from "../component/HomePage/SearchFilterBar";
 import Card from "../component/HomePage/Card";
 import Favourites from "../component/HomePage/Favourites";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function HomePage(props) {
   const [searchResult, setSearchResult] = useState("");
@@ -17,7 +17,7 @@ export default function HomePage(props) {
   };
 
   const isFavorite = (country) => {
-    return favorites.includes(country); // t or f
+    return favorites.some((fav) => fav.name === country.name.common); // t or f
   };
 
   const filterCountries = props.countries.filter((country) => {
@@ -35,14 +35,25 @@ export default function HomePage(props) {
     event.stopPropagation();
     const updatedFavorites = [...favorites, country];
     setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
   const removeFavorite = (event, country) => {
     event.preventDefault();
     event.stopPropagation();
-    const updatedFavorites = favorites.filter((fav) => fav !== country);
+    const updatedFavorites = favorites.filter(
+      (fav) => fav.name !== country.name
+    );
     setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
+
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+  }, []);
 
   return (
     <div className="bg-light-backgroundColor dark:bg-dark-backgroundcolor">

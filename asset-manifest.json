@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/WhereInTheWorldReact/static/css/main.012dbdb7.css",
+    "main.js": "/WhereInTheWorldReact/static/js/main.4fa36a25.js",
+    "index.html": "/WhereInTheWorldReact/index.html",
+    "main.012dbdb7.css.map": "/WhereInTheWorldReact/static/css/main.012dbdb7.css.map",
+    "main.4fa36a25.js.map": "/WhereInTheWorldReact/static/js/main.4fa36a25.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.012dbdb7.css",
+    "static/js/main.4fa36a25.js"
+  ]
+}

@@ -1,11 +1,22 @@
 import React from "react";
 import { FaRegWindowClose } from "react-icons/fa";
-
 export default function Favourites(props) {
+  const draggingOver = (e) => {
+    e.preventDefault();
+  };
+  const dragDropped = (e) => {
+    e.preventDefault();
+    const data = e.dataTransfer.getData("card");
+    const country = JSON.parse(data); // Parse the JSON data
+    props.addFavorite(e, country); // Pass the country data to addFavorite
+  };
   return (
-    <div className="md:block hidden w-2/4 lg:w-1/4 shadow-lg bg-light-elementsColor dark:bg-dark-elementscolor h-screen dark:text-dark-textcolor">
+    <div
+      onDragOver={draggingOver}
+      onDrop={dragDropped}
+      className="md:block hidden w-2/4 lg:w-1/4 shadow-lg bg-light-elementsColor dark:bg-dark-elementscolor h-screen dark:text-dark-textcolor"
+    >
       <div className="px-5 pt-5 font-bold text-xl tracking-wide">Favourite</div>
-
       <div>
         <ul>
           {props.favorites.map((country, index) => (

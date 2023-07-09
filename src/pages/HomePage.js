@@ -2,7 +2,7 @@ import SearchFilterBar from "../component/HomePage/SearchFilterBar";
 import Card from "../component/HomePage/Card";
 import Favourites from "../component/HomePage/Favourites";
 import { useState, useEffect } from "react";
-
+import { DragDropContext } from "react-beautiful-dnd";
 export default function HomePage(props) {
   const [searchResult, setSearchResult] = useState("");
   const [filterResult, setFilterResult] = useState("No Filter");
@@ -17,22 +17,15 @@ export default function HomePage(props) {
   };
 
   const isFavorite = (country) => {
+    console.log(country)
     return favorites.some((fav) => fav.name === country.name.common); // t or f
   };
 
-  const filterCountries = props.countries.filter((country) => {
-    if (filterResult === "Favorite") {
-      return isFavorite(country);
-    } else if (filterResult === "No Filter") {
-      return true;
-    } else {
-      return country.region === filterResult;
-    }
-  });
 
   const addFavorite = (event, country) => {
     event.preventDefault();
     event.stopPropagation();
+
     const updatedFavorites = [...favorites, country];
     setFavorites(updatedFavorites);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
@@ -55,6 +48,17 @@ export default function HomePage(props) {
     }
   }, []);
 
+  const filterCountries = props.countries.filter((country) => {
+    if (filterResult === "Favorite") {
+      return isFavorite(country);
+    } else if (filterResult === "No Filter") {
+      return true;
+    } else {
+      return country.region === filterResult;
+    }
+  });
+
+ 
   return (
     <div className="bg-light-backgroundColor dark:bg-dark-backgroundcolor">
       <SearchFilterBar
@@ -65,16 +69,22 @@ export default function HomePage(props) {
         filterResult={filterResult}
       />
 
-      <div className="flex flex-row px-10 md:px-28">
-        <Favourites favorites={favorites} removeFavorite={removeFavorite} />
+      <DragDropContext>
+        <div className="flex flex-row px-10 md:px-28">
+          <Favourites
+            favorites={favorites}
+            removeFavorite={removeFavorite}
+            addFavorite={addFavorite}
+          />
 
-        <Card
-          countries={filterCountries}
-          addFavorite={addFavorite}
-          removeFavorite={removeFavorite}
-          isFavorite={isFavorite}
-        />
-      </div>
+          <Card
+            countries={filterCountries}
+            addFavorite={addFavorite}
+            removeFavorite={removeFavorite}
+            isFavorite={isFavorite}
+          />
+        </div>
+      </DragDropContext>
     </div>
   );
 }

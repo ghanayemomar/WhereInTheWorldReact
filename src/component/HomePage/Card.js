@@ -2,6 +2,11 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function Card(props) {
+  const dragStart = (e, country) => {
+    let data = { name: country.name.common, flag: country.flags.svg };
+    e.dataTransfer.setData("card", JSON.stringify(data));
+  };
+
   return props.countries.length === 0 ? (
     <div className="text-3xl font-semibold mx-auto min-h-screen dark:text-dark-textcolor">
       No Countries Found
@@ -12,6 +17,8 @@ export default function Card(props) {
         <Link
           to={`Detail-Page/${country.name.common}`}
           key={index}
+          draggable
+          onDragStart={(e) => dragStart(e, country)}
           className="relative rounded shadow-xl w-full h-96 dark:text-dark-textcolor dark:bg-dark-elementscolor"
         >
           <img

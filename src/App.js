@@ -1,7 +1,6 @@
 import HomePage from "./pages/HomePage";
 import DetailPage from "./pages/DetailPage";
 import {
-  createBrowserRouter,
   RouterProvider,
   createHashRouter,
 } from "react-router-dom";

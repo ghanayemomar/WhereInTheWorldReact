@@ -1869,11 +1869,11 @@ const countries =[
 
 const router = createBrowserRouter([
   {
-    path: "WhereInTheWorldReact",
+    path: "/WhereInTheWorldReact",
     errorElement: <ErrorPage />,
     element: <RootLayout />,
     children: [
-      { path: "", element: <HomePage countries={countries} /> },
+      {index: true, element: <HomePage countries={countries} /> },
       { path: "Detail-Page/:CountryName", element: <DetailPage countries={countries} /> },
     ],
   },

@@ -21,16 +21,16 @@ export default function Favourites(props) {
     <div
       onDragOver={draggingOver}
       onDrop={dragDropped}
-      className={`md:block hidden w-2/4 lg:w-1/4 shadow-lg bg-light-elementsColor h-full dark:bg-dark-elementscolor dark:text-dark-textcolor ${
+      className={`md:block h-[calc(100vh-300px)] hidden w-2/4 lg:w-1/4 shadow-lg bg-light-elementsColor dark:bg-dark-elementscolor dark:text-dark-textcolor ${
         isDraggingOver ? "border-light-borderColor border-2" : ""
       }`}
     >
       <div className="px-5 pt-5 font-bold text-xl tracking-wide">Favourite</div>
-      <div className="h-screen overflow-y-auto">
+      <div className="max-h-[calc(100vh-350px)] overflow-y-auto">
         <ul>
           {props.favorites.map((country, index) => (
             <li key={index}>
-              <div className="flex flex-row justify-between mt-5 items-center">
+              <div className="flex flex-row justify-between mb-5 mt-5 items-center">
                 <div className="flex flex-row flex-wrap items-center">
                   <img
                     className="mx-3 w-12 rounded"

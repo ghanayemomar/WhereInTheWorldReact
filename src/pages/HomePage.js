@@ -59,7 +59,7 @@ export default function HomePage(props) {
   });
 
   return (
-    <div className="bg-light-backgroundColor dark:bg-dark-backgroundcolor">
+    <div className="bg-light-backgroundColor dark:bg-dark-backgroundcolor min-h-screen">
       <SearchFilterBar
         placeholder="Search for a country"
         onChangeSearch={searchInputChangeHandler}

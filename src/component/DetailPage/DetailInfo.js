@@ -1,4 +1,5 @@
 export default function DetailInfo({ country }) {
+  
   const getFieldValue = (value) => {
     return value || "No Data Found";
   };

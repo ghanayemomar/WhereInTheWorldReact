@@ -17,18 +17,18 @@ export default function HomePage(props) {
   };
 
   const isFavorite = (country) => {
-    console.log(country)
     return favorites.some((fav) => fav.name === country.name.common); // t or f
   };
-
 
   const addFavorite = (event, country) => {
     event.preventDefault();
     event.stopPropagation();
-
-    const updatedFavorites = [...favorites, country];
-    setFavorites(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    const isAlreadyFav = favorites.some((fav) => fav.name === country.name);
+    if (!isAlreadyFav) {
+      const updatedFavorites = [...favorites, country];
+      setFavorites(updatedFavorites);
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    }
   };
 
   const removeFavorite = (event, country) => {
@@ -58,7 +58,6 @@ export default function HomePage(props) {
     }
   });
 
- 
   return (
     <div className="bg-light-backgroundColor dark:bg-dark-backgroundcolor">
       <SearchFilterBar

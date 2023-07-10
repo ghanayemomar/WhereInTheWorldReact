@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaRegWindowClose } from "react-icons/fa";
+
 export default function Favourites(props) {
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
@@ -15,16 +16,17 @@ export default function Favourites(props) {
     const country = JSON.parse(data);
     props.addFavorite(e, country);
   };
+
   return (
     <div
       onDragOver={draggingOver}
       onDrop={dragDropped}
-      className={`md:block hidden w-2/4 lg:w-1/4 shadow-lg bg-light-elementsColor dark:bg-dark-elementscolor h-screen dark:text-dark-textcolor ${
+      className={`md:block hidden w-2/4 lg:w-1/4 shadow-lg bg-light-elementsColor h-full dark:bg-dark-elementscolor dark:text-dark-textcolor ${
         isDraggingOver ? "border-light-borderColor border-2" : ""
       }`}
     >
       <div className="px-5 pt-5 font-bold text-xl tracking-wide">Favourite</div>
-      <div>
+      <div className="h-screen overflow-y-auto">
         <ul>
           {props.favorites.map((country, index) => (
             <li key={index}>

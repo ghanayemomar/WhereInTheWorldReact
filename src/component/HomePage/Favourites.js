@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaRegWindowClose } from "react-icons/fa";
 export default function Favourites(props) {
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
+
   const draggingOver = (e) => {
     e.preventDefault();
+    setIsDraggingOver(true);
   };
+
   const dragDropped = (e) => {
     e.preventDefault();
+    setIsDraggingOver(false);
     const data = e.dataTransfer.getData("card");
-    const country = JSON.parse(data); // Parse the JSON data
-    props.addFavorite(e, country); // Pass the country data to addFavorite
+    const country = JSON.parse(data);
+    props.addFavorite(e, country);
   };
   return (
     <div
       onDragOver={draggingOver}
       onDrop={dragDropped}
-      className="md:block hidden w-2/4 lg:w-1/4 shadow-lg bg-light-elementsColor dark:bg-dark-elementscolor h-screen dark:text-dark-textcolor"
+      className={`md:block hidden w-2/4 lg:w-1/4 shadow-lg bg-light-elementsColor dark:bg-dark-elementscolor h-screen dark:text-dark-textcolor ${
+        isDraggingOver ? "border-light-borderColor border-2" : ""
+      }`}
     >
       <div className="px-5 pt-5 font-bold text-xl tracking-wide">Favourite</div>
       <div>
@@ -32,7 +39,6 @@ export default function Favourites(props) {
                     {country.name}
                   </div>
                 </div>
-
                 <div>
                   <FaRegWindowClose
                     className="text-lg cursor-pointer mr-3.5"

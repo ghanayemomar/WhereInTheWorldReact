@@ -1,3 +1,4 @@
+import React from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -5,6 +6,11 @@ export default function Card(props) {
   const dragStart = (e, country) => {
     let data = { name: country.name.common, flag: country.flags.svg };
     e.dataTransfer.setData("card", JSON.stringify(data));
+    e.target.style.opacity = "0.5";
+  };
+
+  const dragEnd = (e) => {
+    e.target.style.opacity = "1";
   };
 
   return props.countries.length === 0 ? (
@@ -19,6 +25,7 @@ export default function Card(props) {
           key={index}
           draggable
           onDragStart={(e) => dragStart(e, country)}
+          onDragEnd={dragEnd}
           className="relative rounded shadow-xl w-full h-96 dark:text-dark-textcolor dark:bg-dark-elementscolor"
         >
           <img

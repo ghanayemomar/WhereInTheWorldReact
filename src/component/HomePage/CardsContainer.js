@@ -26,6 +26,7 @@ export default function CardsContainer(props) {
             dragStart={dragStart}
             dragEnd={dragEnd}
             addFavorite={props.addFavorite}
+            removeFavorite={props.removeFavorite}
             isFavorite={props.isFavorite}
           />
         ))}

@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
-import NavBar from "../component/NavBar";
+import Header from "../component/Header";
 function RootLayout() {
   return (
     <>
-      <NavBar />
+      <Header />
       <main>
         <Outlet />
       </main>

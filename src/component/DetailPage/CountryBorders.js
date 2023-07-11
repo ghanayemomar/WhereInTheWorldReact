@@ -1,4 +1,4 @@
-export default function DetailBorders({ country }) {
+export default function CountryBorders({ country }) {
   const borderCountries = country.borders;
   return (
     <div className="flex flex-row items-center flex-wrap lg:mt-16 mt-10 mb-14">

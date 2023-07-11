@@ -1,4 +1,4 @@
-export default function DetailInfo({ country }) {
+export default function CountryInfo({ country }) {
   
   const getFieldValue = (value) => {
     return value || "No Data Found";

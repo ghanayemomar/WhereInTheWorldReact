@@ -1,8 +1,7 @@
 import SearchFilterBar from "../component/HomePage/SearchFilterBar";
-import Card from "../component/HomePage/Card";
+import CardsContainer from "../component/HomePage/CardsContainer.js";
 import Favourites from "../component/HomePage/Favourites";
 import { useState, useEffect } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
 export default function HomePage(props) {
   const [searchResult, setSearchResult] = useState("");
   const [filterResult, setFilterResult] = useState("No Filter");
@@ -68,22 +67,19 @@ export default function HomePage(props) {
         filterResult={filterResult}
       />
 
-      <DragDropContext>
-        <div className="flex flex-row px-10 md:px-28">
-          <Favourites
-            favorites={favorites}
-            removeFavorite={removeFavorite}
-            addFavorite={addFavorite}
-          />
-
-          <Card
-            countries={filterCountries}
-            addFavorite={addFavorite}
-            removeFavorite={removeFavorite}
-            isFavorite={isFavorite}
-          />
-        </div>
-      </DragDropContext>
+      <div className="flex flex-row px-10 md:px-28">
+        <Favourites
+          favorites={favorites}
+          removeFavorite={removeFavorite}
+          addFavorite={addFavorite}
+        />
+        <CardsContainer
+          countries={filterCountries}
+          addFavorite={addFavorite}
+          removeFavorite={removeFavorite}
+          isFavorite={isFavorite}
+        />
+      </div>
     </div>
   );
 }

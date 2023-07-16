@@ -2,12 +2,12 @@ import SearchFilterBar from "../component/HomePage/SearchFilterBar";
 import CardsContainer from "../component/HomePage/CardsContainer.js";
 import Favourites from "../component/HomePage/Favourites";
 import { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, json } from "react-router-dom";
 
 export default function HomePage(props) {
-  const countries = useLoaderData();
   const [searchResult, setSearchResult] = useState("");
   const [filterResult, setFilterResult] = useState("No Filter");
+  const countries = useLoaderData(loader, searchResult);
 
   const [favorites, setFavorites] = useState([]);
 
@@ -87,13 +87,24 @@ export default function HomePage(props) {
   );
 }
 
-export async function loader() {
-  const response = await fetch(
-    "https://restcountries.com/v3.1/all?fields=name,capital,currencies,population,region,subregion,tld,borders,flags,languages"
-  );
-  if (!response.ok) {
-  } else {
-    const data = await response.json();
-    return data;
+export async function loader(searchResult) {
+  try {
+    const response = await fetch(
+      "https://restcountries.com/v3.1/all?fields=name,capital,currencies,population,region,subregion,tld,borders,flags,languages"
+    );
+    if (!response.ok) {
+      throw new Error("Could not fetch events.");
+    }
+
+    return response;
+  } catch (err) {
+    throw json(
+      {
+        message: "Could Not Fetch Countries",
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }

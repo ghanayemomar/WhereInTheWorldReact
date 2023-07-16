@@ -1,9 +1,6 @@
-import HomePage from "./pages/HomePage";
+import HomePage, { loader as countires } from "./pages/HomePage";
 import DetailPage from "./pages/DetailPage";
-import {
-  RouterProvider,
-  createHashRouter,
-} from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
 import RootLayout from "./pages/Root";
 
@@ -1554,10 +1551,15 @@ const router = createHashRouter([
     errorElement: <ErrorPage />,
     element: <RootLayout />,
     children: [
-      { index: true, element: <HomePage countries={countries} /> },
+      {
+        index: true,
+        element: <HomePage countries={countries} />,
+        loader: countires,
+      },
       {
         path: "Detail-Page/:CountryName",
-        element: <DetailPage countries={countries} />,
+        element: <DetailPage/>,
+        loader: countires,
       },
     ],
   },

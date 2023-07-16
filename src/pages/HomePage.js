@@ -2,7 +2,10 @@ import SearchFilterBar from "../component/HomePage/SearchFilterBar";
 import CardsContainer from "../component/HomePage/CardsContainer.js";
 import Favourites from "../component/HomePage/Favourites";
 import { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
+
 export default function HomePage(props) {
+  const countries = useLoaderData();
   const [searchResult, setSearchResult] = useState("");
   const [filterResult, setFilterResult] = useState("No Filter");
 
@@ -47,7 +50,7 @@ export default function HomePage(props) {
     }
   }, []);
 
-  const filterCountries = props.countries.filter((country) => {
+  const filterCountries = countries.filter((country) => {
     if (filterResult === "Favorite") {
       return isFavorite(country);
     } else if (filterResult === "No Filter") {
@@ -82,4 +85,15 @@ export default function HomePage(props) {
       </div>
     </div>
   );
+}
+
+export async function loader() {
+  const response = await fetch(
+    "https://restcountries.com/v3.1/all?fields=name,capital,currencies,population,region,subregion,tld,borders,flags,languages"
+  );
+  if (!response.ok) {
+  } else {
+    const data = await response.json();
+    return data;
+  }
 }

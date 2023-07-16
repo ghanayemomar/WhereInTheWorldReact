@@ -2,14 +2,14 @@ import CountryBorders from "../component/DetailPage/CountryBorders";
 import CountryInfo from "../component/DetailPage/CountryInfo";
 import BackButton from "../component/DetailPage/BackButton";
 import CountryImage from "../component/DetailPage/CountryImage";
-import { useParams } from "react-router-dom";
+import { useParams, useLoaderData } from "react-router-dom";
 
-export default function DetailPage({ countries }) {
-
+export default function DetailPage() {
+  const countries = useLoaderData();
   const params = useParams();
   const target = params.CountryName;
 
-  const country = countries.filter((country)=>{
+  const country = countries.filter((country) => {
     return country.name.common === target ? country : "";
   });
 
@@ -19,8 +19,8 @@ export default function DetailPage({ countries }) {
       <div className="flex flex-col lg:flex-row justify-between">
         <CountryImage country={country[0]} />
         <div className="flex flex-col lg:w-3/6 lg:mt-28 mt-16">
-          <CountryInfo country={country[0]}/>
-          <CountryBorders country={country[0]}/>
+          <CountryInfo country={country[0]} />
+          <CountryBorders country={country[0]} />
         </div>
       </div>
     </div>

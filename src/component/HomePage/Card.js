@@ -31,15 +31,15 @@ export default function Card(props) {
       draggable
       onDragStart={(e) => props.dragStart(e, props.country)}
       onDragEnd={props.dragEnd}
-      className="relative rounded shadow-xl w-full h-96 dark:text-dark-textcolor dark:bg-dark-elementscolor"
+      className="relative rounded shadow-xl w-full h-full dark:text-dark-textcolor dark:bg-dark-elementscolor"
     >
       <img
         className="w-full h-44 object-cover"
         src={flag}
         alt={`Flag of ${name}`}
       />
-      <div className="pl-6 pt-10 text-left">
-        <div className="font-extrabold text-xl mb-4">{name}</div>
+      <div className="flex flex-col justify-center px-7 py-10">
+        <div className="font-extrabold text-xl mb-5">{name}</div>
         <div>
           <ul>
             <li>

@@ -80,11 +80,11 @@ export default function HomePage() {
       />
 
       {isLoading ? (
-        <div class="flex justify-center items-center dark:text-dark-textcolor">
-          <div class="animate-spin w-12 h-12 border-4 border-current border-t-transparent rounded-full">
-            <span class="sr-only">Loading...</span>
+        <div className="flex justify-center items-center dark:text-dark-textcolor">
+          <div className="animate-spin w-12 h-12 border-4 border-current border-t-transparent rounded-full">
+            <span className="sr-only">Loading...</span>
           </div>
-          <div class="ml-2 dark:text-dark-textcolor text-2xl">Loading...</div>
+          <div className="ml-2 dark:text-dark-textcolor text-2xl">Loading...</div>
         </div>
       ) : (
         <div className="flex flex-row px-10 md:px-28">
@@ -101,7 +101,6 @@ export default function HomePage() {
           />
         </div>
       )}
-      {isError && <div>Error fetching countries</div>}
     </div>
   );
 }

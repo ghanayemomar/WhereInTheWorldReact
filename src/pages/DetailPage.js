@@ -27,7 +27,7 @@ export default function DetailPage() {
       ) : (
         <>
           {isError || !country ? (
-            <div class="mt-44 text-center text-3xl">
+            <div className="mt-44 text-center text-3xl">
               Error fetching country...
             </div>
           ) : (

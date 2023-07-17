@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import axios from "axios";
+
 export const fetchCountries = async (searchResult) => {
   let url =
     "https://restcountries.com/v3.1/all?fields=name,capital,currencies,population,region,subregion,tld,borders,flags,languages";

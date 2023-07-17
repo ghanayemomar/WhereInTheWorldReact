@@ -3,6 +3,9 @@ import DetailPage from "./pages/DetailPage";
 import { RouterProvider, createHashRouter } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
 import RootLayout from "./pages/Root";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const router = createHashRouter([
   {
@@ -13,19 +16,21 @@ const router = createHashRouter([
       {
         index: true,
         element: <HomePage />,
-        loader: countires,
       },
       {
         path: "Detail-Page/:CountryName",
         element: <DetailPage />,
-        loader: countires,
       },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

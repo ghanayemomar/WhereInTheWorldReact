@@ -2,14 +2,17 @@ import SearchFilterBar from "../component/HomePage/SearchFilterBar";
 import CardsContainer from "../component/HomePage/CardsContainer.js";
 import Favourites from "../component/HomePage/Favourites";
 import { useState, useEffect } from "react";
-import { useLoaderData, json } from "react-router-dom";
+import { useCountries } from "../component/Helper/Api";
+import useDebounce from "../component/Helper/useDebounce";
 
-export default function HomePage(props) {
+export default function HomePage() {
   const [searchResult, setSearchResult] = useState("");
   const [filterResult, setFilterResult] = useState("No Filter");
-  const countries = useLoaderData(loader, searchResult);
-
   const [favorites, setFavorites] = useState([]);
+  const debouncedValue = useDebounce(searchResult, 1000);
+
+  const { data, isLoading, isError } = useCountries(debouncedValue);
+  const countries = data ?? [];
 
   const searchInputChangeHandler = (searchResult) => {
     setSearchResult(searchResult);
@@ -50,15 +53,17 @@ export default function HomePage(props) {
     }
   }, []);
 
-  const filterCountries = countries.filter((country) => {
-    if (filterResult === "Favorite") {
-      return isFavorite(country);
-    } else if (filterResult === "No Filter") {
-      return true;
-    } else {
-      return country.region === filterResult;
-    }
-  });
+  const filterCountries = Array.isArray(countries)
+    ? countries.filter((country) => {
+        if (filterResult === "Favorite") {
+          return isFavorite(country);
+        } else if (filterResult === "No Filter") {
+          return true;
+        } else {
+          return country.region === filterResult;
+        }
+      })
+    : [];
 
   return (
     <div className="bg-light-backgroundColor dark:bg-dark-backgroundcolor min-h-screen">
@@ -70,41 +75,24 @@ export default function HomePage(props) {
         filterResult={filterResult}
       />
 
-      <div className="flex flex-row px-10 md:px-28">
-        <Favourites
-          favorites={favorites}
-          removeFavorite={removeFavorite}
-          addFavorite={addFavorite}
-        />
-        <CardsContainer
-          countries={filterCountries}
-          addFavorite={addFavorite}
-          removeFavorite={removeFavorite}
-          isFavorite={isFavorite}
-        />
-      </div>
+      {isLoading ? (
+        <div class="text-center text-2xl">Loading ...</div>
+      ) : (
+        <div className="flex flex-row px-10 md:px-28">
+          <Favourites
+            favorites={favorites}
+            removeFavorite={removeFavorite}
+            addFavorite={addFavorite}
+          />
+          <CardsContainer
+            countries={filterCountries}
+            addFavorite={addFavorite}
+            removeFavorite={removeFavorite}
+            isFavorite={isFavorite}
+          />
+        </div>
+      )}
+      {isError && <div>Error fetchin countires</div>}
     </div>
   );
-}
-
-export async function loader(searchResult) {
-  try {
-    const response = await fetch(
-      "https://restcountries.com/v3.1/all?fields=name,capital,currencies,population,region,subregion,tld,borders,flags,languages"
-    );
-    if (!response.ok) {
-      throw new Error("Could not fetch events.");
-    }
-
-    return response;
-  } catch (err) {
-    throw json(
-      {
-        message: "Could Not Fetch Countries",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
 }

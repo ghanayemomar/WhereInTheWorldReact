@@ -2,12 +2,15 @@ import CountryBorders from "../component/DetailPage/CountryBorders";
 import CountryInfo from "../component/DetailPage/CountryInfo";
 import BackButton from "../component/DetailPage/BackButton";
 import CountryImage from "../component/DetailPage/CountryImage";
-import { useParams, useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useCountries } from "../component/Helper/Api";
 
 export default function DetailPage() {
-  const countries = useLoaderData();
   const params = useParams();
   const target = params.CountryName;
+
+  const { data } = useCountries("");
+  const countries = data ?? [];
 
   const country = countries.filter((country) => {
     return country.name.common === target ? country : "";

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { useCallback } from "react";
 
 export default function Card(props) {
   let name = props.country?.name?.common ?? "No Data Found";
@@ -11,20 +12,21 @@ export default function Card(props) {
   let region = props.country?.region ?? "No Data Found";
   let capital = props.country?.capital?.[0] ?? "No Data Found";
 
-  const handleAddFavorite = (event) => {
+  const handleAddFavorite = useCallback((event) => {
     const favoriteData = {
       name: name,
       flag: flag,
     };
     props.addFavorite(event, favoriteData);
-  };
-  const handleRemoveFavorite = (event) => {
+  }, [name, flag, props.addFavorite]);
+
+ const handleRemoveFavorite = useCallback((event) => {
     const favoriteData = {
       name: name,
       flag: flag,
     };
     props.removeFavorite(event, favoriteData);
-  };
+  }, [name, flag, props.removeFavorite]);
 
   return (
     <Link

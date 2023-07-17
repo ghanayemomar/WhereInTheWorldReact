@@ -11,7 +11,11 @@ export const fetchCountries = async (searchResult) => {
 };
 
 export const useCountries = (searchResult) => {
-  return useQuery(["countries", searchResult], () =>
-    fetchCountries(searchResult)
+  return useQuery(
+    ["countries", searchResult],
+    () => fetchCountries(searchResult),
+    {
+      staleTime: 300000,
+    }
   );
 };

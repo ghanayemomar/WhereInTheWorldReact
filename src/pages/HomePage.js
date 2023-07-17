@@ -1,7 +1,7 @@
 import SearchFilterBar from "../component/HomePage/SearchFilterBar";
 import CardsContainer from "../component/HomePage/CardsContainer.js";
 import Favourites from "../component/HomePage/Favourites";
-import { useState, useEffect , useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useCountries } from "../component/Helper/Api";
 import useDebounce from "../component/Helper/useDebounce";
 
@@ -12,11 +12,12 @@ export default function HomePage() {
   const debouncedValue = useDebounce(searchResult, 1000);
 
   const { data, isLoading, isError } = useCountries(debouncedValue);
-  const countries = useMemo(()=>(data ?? []),[data]);
+  const countries = useMemo(() => data ?? [], [data]);
 
   const searchInputChangeHandler = (searchResult) => {
     setSearchResult(searchResult);
   };
+
   const filterDropDownChangeHandler = (filterResult) => {
     setFilterResult(filterResult);
   };
@@ -67,7 +68,7 @@ export default function HomePage() {
     }
     return [];
   }, [countries, filterResult, isFavorite]);
-  
+
   return (
     <div className="bg-light-backgroundColor dark:bg-dark-backgroundcolor min-h-screen">
       <SearchFilterBar

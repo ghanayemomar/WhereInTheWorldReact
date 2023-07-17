@@ -5,7 +5,9 @@ export default function Card(props) {
   let name = props.country?.name?.common ?? "No Data Found";
   let flag = props.country?.flags?.svg ?? "No Data Found";
   let index = props.index;
-  let population = props.country?.population ?? "No Data Found";
+  let population = props.country?.population
+  ? props.country.population.toLocaleString()
+  : "No Data Found";
   let region = props.country?.region ?? "No Data Found";
   let capital = props.country?.capital?.[0] ?? "No Data Found";
 

@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/WhereInTheWorldReact/static/css/main.f650fd62.css",
-    "main.js": "/WhereInTheWorldReact/static/js/main.98efd65b.js",
+    "main.js": "/WhereInTheWorldReact/static/js/main.ede2cd90.js",
     "index.html": "/WhereInTheWorldReact/index.html",
     "main.f650fd62.css.map": "/WhereInTheWorldReact/static/css/main.f650fd62.css.map",
-    "main.98efd65b.js.map": "/WhereInTheWorldReact/static/js/main.98efd65b.js.map"
+    "main.ede2cd90.js.map": "/WhereInTheWorldReact/static/js/main.ede2cd90.js.map"
   },
   "entrypoints": [
     "static/css/main.f650fd62.css",
-    "static/js/main.98efd65b.js"
+    "static/js/main.ede2cd90.js"
   ]
 }

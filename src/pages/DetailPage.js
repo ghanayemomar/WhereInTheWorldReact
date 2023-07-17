@@ -4,13 +4,14 @@ import BackButton from "../component/DetailPage/BackButton";
 import CountryImage from "../component/DetailPage/CountryImage";
 import { useParams } from "react-router-dom";
 import { useCountries } from "../component/Helper/Api";
+import { useMemo } from "react";
 
 export default function DetailPage() {
   const params = useParams();
   const target = params.CountryName;
 
   const { data, isLoading, isError } = useCountries(target);
-  const country = data ? data[0] : null;
+  const country = useMemo(() => (data ? data[0] : null), [data]);
 
   return (
     <div className="text-lg flex flex-col px-5 sm:px-14 md:px-28 min-h-screen dark:bg-dark-backgroundcolor dark:text-dark-textcolor bg-light-backgroundColor">

@@ -3,38 +3,47 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { useCallback } from "react";
 
 export default function Card(props) {
-  let name = props.country?.name?.common ?? "No Data Found";
-  let flag = props.country?.flags?.svg ?? "No Data Found";
-  let index = props.index;
-  let population = props.country?.population
-  ? props.country.population.toLocaleString()
-  : "No Data Found";
-  let region = props.country?.region ?? "No Data Found";
-  let capital = props.country?.capital?.[0] ?? "No Data Found";
+  const {
+    country,
+    index,
+    addFavorite,
+    removeFavorite,
+    dragStart,
+    dragEnd,
+    isFavorite,
+  } = props;
+
+  let name = country?.name?.common ?? "No Data Found";
+  let flag = country?.flags?.svg ?? "No Data Found";
+  let population = country?.population
+    ? country.population.toLocaleString()
+    : "No Data Found";
+  let region = country?.region ?? "No Data Found";
+  let capital = country?.capital?.[0] ?? "No Data Found";
 
   const handleAddFavorite = useCallback((event) => {
     const favoriteData = {
       name: name,
       flag: flag,
     };
-    props.addFavorite(event, favoriteData);
-  }, [name, flag, props.addFavorite]);
+    addFavorite(event, favoriteData);
+  }, [name, flag, addFavorite]);
 
- const handleRemoveFavorite = useCallback((event) => {
+  const handleRemoveFavorite = useCallback((event) => {
     const favoriteData = {
       name: name,
       flag: flag,
     };
-    props.removeFavorite(event, favoriteData);
-  }, [name, flag, props.removeFavorite]);
+    removeFavorite(event, favoriteData);
+  }, [name, flag, removeFavorite]);
 
   return (
     <Link
       to={`Detail-Page/${name}`}
       key={index}
       draggable
-      onDragStart={(e) => props.dragStart(e, props.country)}
-      onDragEnd={props.dragEnd}
+      onDragStart={(e) => dragStart(e, country)}
+      onDragEnd={dragEnd}
       className="relative rounded shadow-xl w-full h-full dark:text-dark-textcolor dark:bg-dark-elementscolor"
     >
       <img
@@ -62,7 +71,7 @@ export default function Card(props) {
           </ul>
         </div>
       </div>
-      {props.isFavorite(props.country) ? (
+      {isFavorite(country) ? (
         <FaStar
           className="absolute md:hidden  right-5 bottom-5 text-xl"
           onClick={handleRemoveFavorite}

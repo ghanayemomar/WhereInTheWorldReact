@@ -1,4 +1,4 @@
-import HomePage, { loader as countires } from "./pages/HomePage";
+import HomePage from "./pages/HomePage";
 import DetailPage from "./pages/DetailPage";
 import { RouterProvider, createHashRouter } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";

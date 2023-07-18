@@ -1,9 +1,10 @@
 import SearchFilterBar from "../component/HomePage/SearchFilterBar";
 import CardsContainer from "../component/HomePage/CardsContainer.js";
 import Favourites from "../component/HomePage/Favourites";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo , useCallback } from "react";
 import { useCountries } from "../component/Helper/Api";
 import useDebounce from "../component/Helper/useDebounce";
+import LoadingSpinner from "../component/General/LoadingSpinner";
 
 export default function HomePage() {
   const [searchResult, setSearchResult] = useState("");
@@ -11,7 +12,7 @@ export default function HomePage() {
   const [favorites, setFavorites] = useState([]);
   const debouncedValue = useDebounce(searchResult, 1000);
 
-  const { data, isLoading, isError } = useCountries(debouncedValue);
+  const { data, isLoading } = useCountries(debouncedValue);
   const countries = useMemo(() => data ?? [], [data]);
 
   const searchInputChangeHandler = (searchResult) => {
@@ -22,9 +23,9 @@ export default function HomePage() {
     setFilterResult(filterResult);
   };
 
-  const isFavorite = (country) => {
-    return favorites.some((fav) => fav.name === country.name.common); // t or f
-  };
+  const isFavorite = useCallback((country) => {
+    return favorites.some((fav) => fav.name === country.name.common);
+  }, [favorites]);
 
   const addFavorite = (event, country) => {
     event.preventDefault();
@@ -80,12 +81,7 @@ export default function HomePage() {
       />
 
       {isLoading ? (
-        <div className="flex justify-center items-center dark:text-dark-textcolor">
-          <div className="animate-spin w-12 h-12 border-4 border-current border-t-transparent rounded-full">
-            <span className="sr-only">Loading...</span>
-          </div>
-          <div className="ml-2 dark:text-dark-textcolor text-2xl">Loading...</div>
-        </div>
+       <LoadingSpinner/>
       ) : (
         <div className="flex flex-row px-10 md:px-28">
           <Favourites

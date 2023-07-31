@@ -1,17 +1,18 @@
 import SearchFilterBar from "../component/HomePage/SearchFilterBar";
 import CardsContainer from "../component/HomePage/CardsContainer.js";
 import Favourites from "../component/HomePage/Favourites";
-import { useState, useEffect, useMemo , useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useCountries } from "../component/Helper/Api";
 import useDebounce from "../component/Helper/useDebounce";
-import LoadingSpinner from "../component/General/LoadingSpinner";
+import LoadingSpinner from "../component/Shared/LoadingSpinner";
+import { getItemsFromLocalStorage , setItemsToLocalStorage } from "../component/Helper/LocalStorage";
+const Favorites = "favorites";
 
 export default function HomePage() {
   const [searchResult, setSearchResult] = useState("");
   const [filterResult, setFilterResult] = useState("No Filter");
   const [favorites, setFavorites] = useState([]);
   const debouncedValue = useDebounce(searchResult, 1000);
-
   const { data, isLoading } = useCountries(debouncedValue);
   const countries = useMemo(() => data ?? [], [data]);
 
@@ -23,9 +24,12 @@ export default function HomePage() {
     setFilterResult(filterResult);
   };
 
-  const isFavorite = useCallback((country) => {
-    return favorites.some((fav) => fav.name === country.name.common);
-  }, [favorites]);
+  const isFavorite = useCallback(
+    (country) => {
+      return favorites.some((fav) => fav.name === country.name.common);
+    },
+    [favorites]
+  );
 
   const addFavorite = (event, country) => {
     event.preventDefault();
@@ -34,7 +38,7 @@ export default function HomePage() {
     if (!isAlreadyFav) {
       const updatedFavorites = [...favorites, country];
       setFavorites(updatedFavorites);
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      setItemsToLocalStorage(Favorites,updatedFavorites);
     }
   };
 
@@ -45,13 +49,13 @@ export default function HomePage() {
       (fav) => fav.name !== country.name
     );
     setFavorites(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      setItemsToLocalStorage(Favorites,updatedFavorites);
   };
 
   useEffect(() => {
-    const storedFavorites = localStorage.getItem("favorites");
+    const storedFavorites = getItemsFromLocalStorage(Favorites);
     if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites));
+      setFavorites(storedFavorites);
     }
   }, []);
 
@@ -81,7 +85,7 @@ export default function HomePage() {
       />
 
       {isLoading ? (
-       <LoadingSpinner/>
+        <LoadingSpinner />
       ) : (
         <div className="flex flex-row px-10 md:px-28">
           <Favourites

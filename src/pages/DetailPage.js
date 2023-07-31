@@ -5,7 +5,7 @@ import CountryImage from "../component/DetailPage/CountryImage";
 import { useParams } from "react-router-dom";
 import { useCountries } from "../component/Helper/Api";
 import { useMemo } from "react";
-import LoadingSpinner from "../component/General/LoadingSpinner";
+import LoadingSpinner from "../component/Shared/LoadingSpinner";
 
 export default function DetailPage() {
   const params = useParams();

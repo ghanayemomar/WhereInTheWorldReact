@@ -14,7 +14,7 @@ export default function Favourites(props) {
     setIsDraggingOver(false);
     const data = e.dataTransfer.getData("card");
     const country = JSON.parse(data);
-    props.addFavorite(e, country);
+    props.addFavorite(e, country.name);
   };
 
   return (
@@ -28,28 +28,38 @@ export default function Favourites(props) {
       <div className="px-5 pt-5 font-bold text-xl tracking-wide">Favourite</div>
       <div className="max-h-[calc(100vh-350px)] overflow-y-auto">
         <ul>
-          {props.favorites.map((country, index) => (
-            <li key={index}>
-              <div className="flex flex-row justify-between mb-5 mt-5 items-center">
-                <div className="flex flex-row flex-wrap items-center">
-                  <img
-                    className="mx-3 w-12 rounded"
-                    src={country.flag}
-                    alt={`Flag of ${country.name}`}
-                  />
-                  <div className="overflow-hidden text-sm font-semibold">
-                    {country.name}
+          {props.favorites.map((favCountryName) => {
+            const country = props.countries.find(
+              (c) => c.name.common === favCountryName
+            );
+            if (country) {
+              return (
+                <li key={country.name.common}>
+                  <div className="flex flex-row justify-between mb-5 mt-5 items-center">
+                    <div className="flex flex-row flex-wrap items-center">
+                      <img
+                        className="mx-3 w-12 rounded"
+                        src={country.flags.svg}
+                        alt={`Flag of ${country.name.common}`}
+                      />
+                      <div className="overflow-hidden text-sm font-semibold">
+                        {country.name.common}
+                      </div>
+                    </div>
+                    <div>
+                      <FaRegWindowClose
+                        className="text-lg cursor-pointer mr-3.5"
+                        onClick={(event) =>
+                          props.removeFavorite(event, country.name.common)
+                        }
+                      />
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <FaRegWindowClose
-                    className="text-lg cursor-pointer mr-3.5"
-                    onClick={(event) => props.removeFavorite(event, country)}
-                  />
-                </div>
-              </div>
-            </li>
-          ))}
+                </li>
+              );
+            }
+            return null;
+          })}
         </ul>
       </div>
     </div>

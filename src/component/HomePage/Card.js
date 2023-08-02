@@ -21,21 +21,19 @@ export default function Card(props) {
   let region = country?.region ?? "No Data Found";
   let capital = country?.capital?.[0] ?? "No Data Found";
 
-  const handleAddFavorite = useCallback((event) => {
-    const favoriteData = {
-      name: name,
-      flag: flag,
-    };
-    addFavorite(event, favoriteData);
-  }, [name, flag, addFavorite]);
+  const handleAddFavorite = useCallback(
+    (event) => {
+      addFavorite(event, name);
+    },
+    [addFavorite, name]
+  );
 
-  const handleRemoveFavorite = useCallback((event) => {
-    const favoriteData = {
-      name: name,
-      flag: flag,
-    };
-    removeFavorite(event, favoriteData);
-  }, [name, flag, removeFavorite]);
+  const handleRemoveFavorite = useCallback(
+    (event) => {
+      removeFavorite(event, name);
+    },
+    [removeFavorite, name]
+  );
 
   return (
     <Link

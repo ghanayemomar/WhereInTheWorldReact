@@ -5,7 +5,10 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { useCountries } from "../component/Helper/Api";
 import useDebounce from "../component/Helper/useDebounce";
 import LoadingSpinner from "../component/Shared/LoadingSpinner";
-import { getItemsFromLocalStorage , setItemsToLocalStorage } from "../component/Helper/LocalStorage";
+import {
+  getItemsFromLocalStorage,
+  setItemsToLocalStorage,
+} from "../component/Helper/LocalStorage";
 const Favorites = "favorites";
 
 export default function HomePage() {
@@ -26,30 +29,28 @@ export default function HomePage() {
 
   const isFavorite = useCallback(
     (country) => {
-      return favorites.some((fav) => fav.name === country.name.common);
+      return favorites.includes(country.name.common);
     },
     [favorites]
   );
 
-  const addFavorite = (event, country) => {
+  const addFavorite = (event, countryName) => {
     event.preventDefault();
     event.stopPropagation();
-    const isAlreadyFav = favorites.some((fav) => fav.name === country.name);
+    const isAlreadyFav = favorites.includes(countryName);
     if (!isAlreadyFav) {
-      const updatedFavorites = [...favorites, country];
+      const updatedFavorites = [...favorites, countryName];
       setFavorites(updatedFavorites);
-      setItemsToLocalStorage(Favorites,updatedFavorites);
+      setItemsToLocalStorage(Favorites, updatedFavorites);
     }
   };
 
-  const removeFavorite = (event, country) => {
+  const removeFavorite = (event, countryName) => {
     event.preventDefault();
     event.stopPropagation();
-    const updatedFavorites = favorites.filter(
-      (fav) => fav.name !== country.name
-    );
+    const updatedFavorites = favorites.filter((fav) => fav !== countryName);
     setFavorites(updatedFavorites);
-      setItemsToLocalStorage(Favorites,updatedFavorites);
+    setItemsToLocalStorage(Favorites, updatedFavorites);
   };
 
   useEffect(() => {
@@ -92,6 +93,7 @@ export default function HomePage() {
             favorites={favorites}
             removeFavorite={removeFavorite}
             addFavorite={addFavorite}
+            countries={countries}
           />
           <CardsContainer
             countries={filterCountries}
